@@ -25,11 +25,48 @@
         android:orientation="vertical"
         android:layout_gravity="start">
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="侧边栏"
-            android:textSize="20sp"/>
+            android:layout_height="150dp"
+            android:background="@color/colorPrimary"
+            >
+
+            <ImageView
+
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="35dp"
+                android:id="@+id/head"
+                />
+            <TextView
+                android:layout_below="@+id/head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="#ffffff"
+                android:text="艾凡" />
+
+
+
+        </RelativeLayout>
+
+
+        <ListView
+            android:id="@+id/lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#f5f5f5"
+            >
+
+        </ListView>
+
+
+
+
+
+
     </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>

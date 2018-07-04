@@ -1,6 +1,7 @@
 package com.example.yuheng.yiliu;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -13,6 +14,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -30,22 +38,31 @@ import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.bumptech.glide.Glide;
 
 public class MainActivity extends AppCompatActivity implements LocationSource, AMapLocationListener,View.OnClickListener {
+
 
     private MapView mapView;
     private AMap aMap;//地图对象
     private android.support.v7.widget.Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     private TextView add;
+    private ImageView head;
+    private ListView lv;
+
+    //listview名
+    private String[] titles = {"消息中心", "建议反馈", "编辑资料", "重置密码", "清理缓存", "版本更新", "关于我们", "退出"};
+    private int[] imageId = {R.drawable.name6, R.drawable.name1, R.drawable.name7, R.drawable.name5, R.drawable.name2, R.drawable.name8, R.drawable.name3, R.drawable.name4};
+
     //定位需要的声明
     private AMapLocationClient mLocationClient = null;//定位发起端
     private AMapLocationClientOption mLocationOption = null;//定位参数
     private OnLocationChangedListener mListener = null;//定位监听器
-
+    private int mCurrentPos = 0;
+    private ListView mLv_title;
     //标识，用于判断是否只显示一次定位信息和用户重新定位
     private boolean isFirstLoc = true;
-
 
 
     @Override
@@ -54,8 +71,14 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
         setContentView(R.layout.activity_main);
         mapView = (MapView) findViewById(R.id.map);
         add = (TextView) findViewById(R.id.add);
+        head = (ImageView) findViewById(R.id.head);
         add.setOnClickListener(this);
         mapView.onCreate(savedInstanceState);// 此方法必须重写
+        Glide.with(this)
+                .load(R.drawable.pc2)
+                .error(R.drawable.pc2)
+                .transform(new GlideCircleTransform(this))
+                .into(head);
         // 初始化控件
         initView();
 
@@ -78,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
 
         //定位的小图标 默认是蓝点 这里自定义一团火，其实就是一张图片
         MyLocationStyle myLocationStyle = new MyLocationStyle();
-        myLocationStyle.myLocationIcon( BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher));
+        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher));
         myLocationStyle.radiusFillColor(android.R.color.transparent);
         myLocationStyle.strokeColor(android.R.color.transparent);
         aMap.setMyLocationStyle(myLocationStyle);
@@ -86,12 +109,19 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
         //开始定位
         initLoc();
     }
+
     // 初始化Toolbar、DrawerLayout，生成相应的对象
     private void initView() {
+        // 初始化Toolbar、DrawerLayout，生成相应的对象
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        // 初始化ListView
+        mLv_title = (ListView) findViewById(R.id.lv);
+        MyAdapter myAdapter = new MyAdapter();
+        mLv_title.setAdapter(myAdapter);
 
     }
+
 
     // 设置应用title
     private void initData() {
@@ -167,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
                 // 如果不设置标志位，此时再拖动地图时，它会不断将地图移动到当前的位置
                 if (isFirstLoc) {
                     //设置缩放级别
-                    aMap.moveCamera( CameraUpdateFactory.zoomTo(17));
+                    aMap.moveCamera(CameraUpdateFactory.zoomTo(17));
                     //将地图移动到定位点
                     aMap.moveCamera(CameraUpdateFactory.changeLatLng(new LatLng(amapLocation.getLatitude(), amapLocation.getLongitude())));
                     //点击定位按钮 能够将地图的中心移动到定位点
@@ -202,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
         //位置
         options.position(new LatLng(amapLocation.getLatitude(), amapLocation.getLongitude()));
         StringBuffer buffer = new StringBuffer();
-        buffer.append(amapLocation.getCountry() + "" + amapLocation.getProvince() + "" + amapLocation.getCity() +  "" + amapLocation.getDistrict() + "" + amapLocation.getStreet() + "" + amapLocation.getStreetNum());
+        buffer.append(amapLocation.getCountry() + "" + amapLocation.getProvince() + "" + amapLocation.getCity() + "" + amapLocation.getDistrict() + "" + amapLocation.getStreet() + "" + amapLocation.getStreetNum());
         //标题
         options.title(buffer.toString());
         //子标题
@@ -213,6 +243,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
         return options;
 
     }
+
     //激活定位
     @Override
     public void activate(OnLocationChangedListener listener) {
@@ -267,12 +298,38 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.add:
-                Intent intent = new Intent(MainActivity.this,AddActivity.class);
+                Intent intent = new Intent(MainActivity.this, AddActivity.class);
                 startActivity(intent);
         }
+    }
+
+
+    class MyAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return titles.length;
         }
 
+        @Override
+        public Object getItem(int position) {
+            return titles[position];
+        }
 
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
 
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view = View.inflate(getApplicationContext(), R.layout.left_list, null);
+            ImageView iv_photo = (ImageView) view.findViewById(R.id.iv_photo);
+            TextView tv_title = (TextView) view.findViewById(R.id.tv_title);
+            iv_photo.setBackgroundResource(imageId[position]);
+            tv_title.setText(titles[position]);
+            return view;
+        }
 
+    }
 }
