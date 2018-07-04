@@ -1,12 +1,22 @@
 package com.example.yuheng.yiliu;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
+
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
@@ -21,12 +31,13 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
 
-public class MainActivity extends AppCompatActivity implements LocationSource, AMapLocationListener {
+public class MainActivity extends AppCompatActivity implements LocationSource, AMapLocationListener,View.OnClickListener {
 
     private MapView mapView;
     private AMap aMap;//地图对象
-
-
+    private android.support.v7.widget.Toolbar mToolbar;
+    private DrawerLayout mDrawerLayout;
+    private TextView add;
     //定位需要的声明
     private AMapLocationClient mLocationClient = null;//定位发起端
     private AMapLocationClientOption mLocationOption = null;//定位参数
@@ -36,13 +47,20 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
     private boolean isFirstLoc = true;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mapView = (MapView) findViewById(R.id.map);
+        add = (TextView) findViewById(R.id.add);
+        add.setOnClickListener(this);
         mapView.onCreate(savedInstanceState);// 此方法必须重写
+        // 初始化控件
+        initView();
 
+        // 初始化数据
+        initData();
 
         //获取地图对象
         aMap = mapView.getMap();
@@ -67,6 +85,32 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
 
         //开始定位
         initLoc();
+    }
+    // 初始化Toolbar、DrawerLayout，生成相应的对象
+    private void initView() {
+        mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+
+    }
+
+    // 设置应用title
+    private void initData() {
+
+
+        // 设置toolbar支持actionbar
+        setSupportActionBar(mToolbar);
+
+        // 实现按钮开关的显示及打开关闭功能并同步动画
+        initDrawerToggle();
+    }
+
+    private void initDrawerToggle() {
+        // 参数：开启抽屉的activity、DrawerLayout的对象、toolbar按钮打开关闭的对象、描述open drawer、描述close drawer
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open, R.string.close);
+        // 添加抽屉按钮，通过点击按钮实现打开和关闭功能; 如果不想要抽屉按钮，只允许在侧边边界拉出侧边栏，可以不写此行代码
+        mDrawerToggle.syncState();
+        // 设置按钮的动画效果; 如果不想要打开关闭抽屉时的箭头动画效果，可以不写此行代码
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
     //定位
@@ -220,21 +264,13 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_add://监听菜单按钮
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.add:
                 Intent intent = new Intent(MainActivity.this,AddActivity.class);
                 startActivity(intent);
-                break;
         }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.add,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+        }
 
 
 

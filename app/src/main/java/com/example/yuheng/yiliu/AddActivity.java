@@ -54,7 +54,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
-
+        setTitle("忆流");
         /*
          * 防止键盘挡住输入框 不希望遮挡设置activity属性 android:windowSoftInputMode="adjustPan"
          * 希望动态调整高度 android:windowSoftInputMode="adjustResize"

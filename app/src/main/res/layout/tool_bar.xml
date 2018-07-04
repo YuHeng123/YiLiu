@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!--最初tool_bar只有这一个控件，将最外层改为RelativeLayout是为了添加布局控件显示标题-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize">
+    </android.support.v7.widget.Toolbar>
+    <!--toolbar默认的title离抽屉按钮稍远，所以将代码中的title改为透明，布局文件中将创建TextView作为title-->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="60dp"
+        android:text="首页"
+        android:textColor="#ffffff"
+        android:textSize="20sp"/>
+    <TextView
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:text="添加"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        android:layout_marginEnd="15dp"
+        />
+
+</RelativeLayout>
