@@ -10,6 +10,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:scaleType="center"/>
+
     <TextView
         android:text="首页"
         android:id="@+id/tv_title"

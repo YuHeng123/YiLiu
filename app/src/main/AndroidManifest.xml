@@ -64,6 +64,7 @@
                 android:resource="@xml/file_paths">
 
             </meta-data>
+
         </provider>
 
         <meta-data

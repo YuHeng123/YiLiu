@@ -316,6 +316,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
             return titles[position];
         }
 
+
         @Override
         public long getItemId(int position) {
             return position;
