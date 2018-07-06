@@ -125,18 +125,18 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
                 try {
 
-                    if(captureManager == null){
-                        captureManager = new ImageCaptureManager(AddActivity.this);
-                    }
-                    Intent intent3 = captureManager.dispatchTakePictureIntent();
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        intent3.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
-                    }
-                    startActivityForResult(intent3, ImageCaptureManager.REQUEST_TAKE_PHOTO);
-                } catch (IOException e) {
-                    Toast.makeText(AddActivity.this, com.lidong.photopicker.R.string.msg_no_camera, Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
+                if(captureManager == null){
+                    captureManager = new ImageCaptureManager(AddActivity.this);
                 }
+                Intent intent3 = captureManager.dispatchTakePictureIntent();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    intent3.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
+                }
+                startActivityForResult(intent3, ImageCaptureManager.REQUEST_TAKE_PHOTO);
+            } catch (IOException e) {
+                Toast.makeText(AddActivity.this, com.lidong.photopicker.R.string.msg_no_camera, Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
                 break;
         }
     }

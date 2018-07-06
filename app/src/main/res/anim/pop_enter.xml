@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--弹出popupWindows进入效果-->
+    <!--使用方式：在style中新写一个style，将这两个动画用上，然后在java代码中调用style-->
+    <!--位置转换
+        fromYDelta：起始位置Y坐标
+        toYDelta：结束位置Y坐标
+        duration：动画持续时间-->
+    <translate
+        android:duration="200"
+        android:fromYDelta="100%"
+        android:toYDelta="0%" />
+    <!--透明度渐变（淡出效果）
+        fromAlpha：开始时透明度
+        toAlpha：结束时透明度
+        interpolator：指定动作效果-->
+    <alpha
+        android:duration="200"
+        android:fromAlpha="0.0"
+        android:interpolator="@android:anim/decelerate_interpolator"
+        android:toAlpha="1.0" />
+</set>
