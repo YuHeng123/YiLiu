@@ -222,7 +222,6 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
 
 
-
     @Override
     public boolean onCreatePanelMenu(int featureId, Menu menu) {
         getMenuInflater().inflate(R.menu.save,menu);
