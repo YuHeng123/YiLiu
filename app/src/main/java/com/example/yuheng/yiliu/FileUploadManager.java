@@ -24,6 +24,7 @@ import retrofit2.http.PartMap;
  * Created by lidong on 2016/1/28.
  */
 public class FileUploadManager {
+    
 
     private static final String ENDPOINT = "http://192.168.1.21:8080";
     private static String TAG = FileUploadManager.class.getSimpleName();

@@ -73,12 +73,14 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
         add = (TextView) findViewById(R.id.add);
         head = (ImageView) findViewById(R.id.head);
         add.setOnClickListener(this);
+        head.setOnClickListener(this);
         mapView.onCreate(savedInstanceState);// 此方法必须重写
         Glide.with(this)
                 .load(R.drawable.pc2)
                 .error(R.drawable.pc2)
                 .transform(new GlideCircleTransform(this))
                 .into(head);
+        setTitle("");
         // 初始化控件
         initView();
 
@@ -300,6 +302,11 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
             case R.id.add:
                 Intent intent = new Intent(MainActivity.this, AddActivity.class);
                 startActivity(intent);
+                break;
+            case  R.id.head:
+                Intent intent1 = new Intent(MainActivity.this,Sign.class);
+                startActivity(intent1);
+                break;
         }
     }
 
