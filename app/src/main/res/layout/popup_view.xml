@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--添加名片是popupWindow的布局-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="191dp"
+    android:background="@drawable/pop_backgrongd">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="84dp"
+        android:layout_marginTop="42dp">
+
+        <ImageButton
+            android:id="@+id/manual_add_imageButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@mipmap/ic_ask_edit" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/manual_add_imageButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="14dp"
+            android:text="图库添加"
+            android:textColor="#666666"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="84dp"
+        android:layout_marginTop="42dp">
+
+        <ImageButton
+            android:id="@+id/photo_scanning_imageButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@mipmap/ic_ask_ccamera"
+             />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/photo_scanning_imageButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="14dp"
+            android:text="拍照添加"
+            android:textColor="#666666"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <ImageButton
+
+        android:id="@+id/cancel_imageButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="14dp"
+        android:layout_marginTop="155dp"
+        android:background="@mipmap/ic_ask_cancel"/>
+</RelativeLayout>
