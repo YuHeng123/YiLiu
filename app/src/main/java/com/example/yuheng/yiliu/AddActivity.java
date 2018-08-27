@@ -23,6 +23,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -54,28 +55,20 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
-        setTitle("忆流");
-        /*
-         * 防止键盘挡住输入框 不希望遮挡设置activity属性 android:windowSoftInputMode="adjustPan"
-         * 希望动态调整高度 android:windowSoftInputMode="adjustResize"
-         */
-        getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        // 锁定屏幕
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setTitle("创建时光印记");
         setContentView(R.layout.activity_add);
-        Button danxuan = (Button) findViewById(R.id.danxuan);
-        Button duoxuan = (Button) findViewById(R.id.duoxuan);
-        Button paizhao = (Button) findViewById(R.id.paizhao);
+        ImageButton local = (ImageButton) findViewById(R.id.local);
+        ImageButton calendar = (ImageButton) findViewById(R.id.calendar);
+        ImageButton photo = (ImageButton) findViewById(R.id.photo);
+        ImageButton video = (ImageButton) findViewById(R.id.video);
         gv = (GridView) findViewById(R.id.gridView);
         textView= (EditText)findViewById(R.id.et_context);
 
 
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            builder.detectFileUriExposure();
-        }
+        builder.detectFileUriExposure();
+
 
         //得到GridView中每个ImageView宽高
         int cols = getResources().getDisplayMetrics().widthPixels / getResources().getDisplayMetrics().densityDpi;
@@ -86,9 +79,10 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         columnWidth = (screenWidth - columnSpace * (cols-1)) / cols;
 
 
-        danxuan.setOnClickListener(this);
-        duoxuan.setOnClickListener(this);
-        paizhao.setOnClickListener(this);
+        local.setOnClickListener(this);
+        calendar.setOnClickListener(this);
+        photo.setOnClickListener(this);
+        video.setOnClickListener(this);
         //GridView item点击事件（浏览照片）
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -104,15 +98,16 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            //单选图片
-            case R.id.danxuan:
-                PhotoPickerIntent intent = new PhotoPickerIntent(AddActivity.this);
-                intent.setSelectModel(SelectModel.SINGLE);
-                intent.setShowCarema(true);
-                startActivityForResult(intent, REQUEST_CAMERA_CODE);
+            //定位
+            case R.id.local:
+
                 break;
-            //多选图片
-            case R.id.duoxuan:
+            //日期
+            case  R.id.calendar:
+
+                break;
+            //图片
+            case R.id.photo:
                 PhotoPickerIntent intent1 = new PhotoPickerIntent(AddActivity.this);
                 intent1.setSelectModel(SelectModel.MULTI);
                 intent1.setShowCarema(true); // 是否显示拍照
@@ -120,24 +115,11 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                 intent1.setSelectedPaths(imagePaths); // 已选中的照片地址， 用于回显选中状态
                 startActivityForResult(intent1, REQUEST_CAMERA_CODE);
                 break;
-            //拍照
-            case R.id.paizhao:
+            //视频
+            case R.id.video:
 
-                try {
-
-                    if(captureManager == null){
-                        captureManager = new ImageCaptureManager(AddActivity.this);
-                    }
-                    Intent intent3 = captureManager.dispatchTakePictureIntent();
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        intent3.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
-                    }
-                    startActivityForResult(intent3, ImageCaptureManager.REQUEST_TAKE_PHOTO);
-                } catch (IOException e) {
-                    Toast.makeText(AddActivity.this, com.lidong.photopicker.R.string.msg_no_camera, Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                }
                 break;
+
         }
     }
 
@@ -156,12 +138,19 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                     break;
                 // 调用相机拍照
                 case ImageCaptureManager.REQUEST_TAKE_PHOTO:
-                    if(captureManager.getCurrentPhotoPath() != null) {
-                        captureManager.galleryAddPic();
+                    try {
 
-                        ArrayList<String> paths = new ArrayList<>();
-                        paths.add(captureManager.getCurrentPhotoPath());
-                        loadAdpater(paths);
+                        if(captureManager == null){
+                            captureManager = new ImageCaptureManager(AddActivity.this);
+                        }
+                        Intent intent3 = captureManager.dispatchTakePictureIntent();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            intent3.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
+                        }
+                        startActivityForResult(intent3, ImageCaptureManager.REQUEST_TAKE_PHOTO);
+                    } catch (IOException e) {
+                        Toast.makeText(AddActivity.this, com.lidong.photopicker.R.string.msg_no_camera, Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
                     }
                     break;
             }
