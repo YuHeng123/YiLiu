@@ -4,49 +4,130 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginHorizontal="10dp"
     >
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="日期:"
+                    android:id="@+id/d"
+                    android:textSize="20sp"
+                    />
+                <EditText
+                    android:id="@+id/dd"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/unlock"
+                    android:layout_gravity="center_vertical"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="公开"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="地址:"
+                    android:textSize="20sp" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"/>
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="标题:"
+                    android:textSize="20sp" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"/>
+            </LinearLayout>
+            
+            
+            <EditText
+                android:id="@+id/et_context"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="说说你的心情与故事..."
+                android:inputType=""
+                android:background="@null"/>
 
-    <EditText
-        android:gravity="top"
-        android:hint="说说你的心情与故事..."
-        android:id="@+id/et_context"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:inputType="" />
-    <GridView
-        android:id="@+id/gridView"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:numColumns="3"
-        android:horizontalSpacing="5dp"
-        android:verticalSpacing="5dp"
-         />
+            <GridView
+                android:layout_marginTop="5dp"
+                android:id="@+id/gridView"
+                android:layout_width="match_parent"
+                android:layout_height="358dp"
+                android:horizontalSpacing="5dp"
+                android:numColumns="3"
+                android:verticalSpacing="5dp" />
+        </LinearLayout>
+    </ScrollView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:gravity="bottom"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/paizhao"
-            android:layout_width="0dp"
+        android:background="#3333"
+        android:orientation="horizontal"
+        android:gravity="center_vertical|right">
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="相机"
+            android:layout_marginEnd="10dp"
+            >
+        <ImageButton
+            android:layout_marginEnd="15dp"
+            android:id="@+id/local"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/local"
             />
-        <Button
-            android:id="@+id/danxuan"
-            android:layout_width="0dp"
+        <ImageButton
+            android:layout_marginEnd="15dp"
+            android:id="@+id/calendar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="单选"
+            android:background="@drawable/calendar"
             />
-        <Button
-            android:id="@+id/duoxuan"
-            android:layout_width="0dp"
+        <ImageButton
+            android:layout_marginEnd="15dp"
+            android:id="@+id/photo"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="多选"/>
+            android:background="@drawable/photo"
+            />
+        <ImageButton
+            android:id="@+id/video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/video"/>
+        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>
