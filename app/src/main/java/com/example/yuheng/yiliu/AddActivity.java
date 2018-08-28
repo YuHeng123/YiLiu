@@ -21,12 +21,14 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 import com.lidong.photopicker.ImageCaptureManager;
@@ -40,7 +42,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class AddActivity extends AppCompatActivity implements View.OnClickListener {
+public class AddActivity extends AppCompatActivity implements View.OnClickListener{
     private int columnWidth;
     private ArrayList<String> imagePaths = null;
     private GridAdapter gridAdapter;
@@ -51,18 +53,26 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private String depp;
     private String TAG =AddActivity.class.getSimpleName();
     private EditText textView;
+    private ToggleButton lock;
+    private boolean aBoolean=true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add);
         setTitle("创建时光印记");
         setContentView(R.layout.activity_add);
+
+
+        lock = (ToggleButton) findViewById(R.id.lock);
         ImageButton local = (ImageButton) findViewById(R.id.local);
         ImageButton calendar = (ImageButton) findViewById(R.id.calendar);
         ImageButton photo = (ImageButton) findViewById(R.id.photo);
         ImageButton video = (ImageButton) findViewById(R.id.video);
         gv = (GridView) findViewById(R.id.gridView);
         textView= (EditText)findViewById(R.id.et_context);
+
+
+
 
 
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
@@ -79,6 +89,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         columnWidth = (screenWidth - columnSpace * (cols-1)) / cols;
 
 
+        lock.setOnClickListener(this);
         local.setOnClickListener(this);
         calendar.setOnClickListener(this);
         photo.setOnClickListener(this);
@@ -94,6 +105,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
             }
         });
     }
+
 
     @Override
     public void onClick(View view) {
@@ -119,6 +131,11 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
             case R.id.video:
 
                 break;
+
+            case R.id.lock:
+                lock.setSelected(aBoolean);
+                aBoolean = !aBoolean;
+
 
         }
     }
@@ -170,6 +187,9 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
             gridAdapter.notifyDataSetChanged();
         }
     }
+
+
+
     private class GridAdapter extends BaseAdapter {
         private ArrayList<String> listUrls;
 

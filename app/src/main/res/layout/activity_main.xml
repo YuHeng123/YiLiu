@@ -7,14 +7,11 @@
     tools:context=".MainActivity">
 
 
-    <!--Toolbar-->
-    <include layout="@layout/tool_bar"
-        android:id="@+id/toolbar1"/>
     <!--DrawerLayout-->
     <include
-        android:layout_below="@+id/toolbar1"
         layout="@layout/custom_drawer"
         android:layout_height="match_parent"
         android:layout_width="match_parent" />
+
 
 </RelativeLayout>
