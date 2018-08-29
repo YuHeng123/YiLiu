@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,8 +52,9 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
     private DrawerLayout mDrawerLayout;
     private TextView add;
     private ImageView head;
-    private ListView lv;
-    StringBuffer buffer = new StringBuffer();
+
+    private long firstTime = 0;
+
     //listview名
     private String[] titles = {"消息中心", "建议反馈", "编辑资料", "重置密码", "清理缓存", "版本更新", "关于我们", "退出"};
     private int[] imageId = {R.drawable.name6, R.drawable.name1, R.drawable.name7, R.drawable.name5, R.drawable.name2, R.drawable.name8, R.drawable.name3, R.drawable.name4};
@@ -215,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
                     //添加图钉
                     aMap.addMarker(getMarkerOptions(amapLocation));
                     //获取定位信息
-
+                    StringBuffer buffer = new StringBuffer();
                     buffer.append(amapLocation.getCountry() + "" + amapLocation.getProvince() + "" + amapLocation.getCity() + "" + amapLocation.getProvince() + "" + amapLocation.getDistrict() + "" + amapLocation.getStreet() + "" + amapLocation.getStreetNum());
                     Toast.makeText(getApplicationContext(), buffer.toString(), Toast.LENGTH_LONG).show();
                     isFirstLoc = false;
@@ -308,9 +310,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.add:
-                Intent intent = new Intent();
-                intent.putExtra("address",buffer.toString());
-                intent.setClass(MainActivity.this,AddActivity.class);
+                Intent intent = new Intent(MainActivity.this, AddActivity.class);
                 startActivity(intent);
                 break;
             case  R.id.head:
@@ -349,5 +349,23 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
             return view;
         }
 
+    }
+
+
+
+    @Override
+    public boolean onKeyUp(int keyCode,KeyEvent event){
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP){
+            long secondTime = System.currentTimeMillis();
+            if(secondTime - firstTime > 2000){
+                Toast.makeText( MainActivity.this,"再按一次退出",Toast.LENGTH_SHORT ).show();
+                firstTime = secondTime;
+                return true;
+            }
+            else{
+                System.exit( 0 );
+            }
+        }
+        return super.onKeyUp(keyCode,event);
     }
 }
