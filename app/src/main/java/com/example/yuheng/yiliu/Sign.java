@@ -36,11 +36,6 @@ public class Sign extends AppCompatActivity implements View.OnClickListener {
         tv.setOnClickListener(this);
 
 
-        Glide.with(this)
-                .load(R.drawable.picture6)
-                .error(R.drawable.pc2)
-                .transform(new GlideCircleTransform(this))
-                .into(head1);
 
     }
 

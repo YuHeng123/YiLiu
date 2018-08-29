@@ -85,9 +85,9 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
         mapView.onCreate(savedInstanceState);// 此方法必须重写
         Glide.with(this)
                 .load(R.drawable.pc2)
-                .error(R.drawable.pc2)
-                .transform(new GlideCircleTransform(this))
                 .into(head);
+        setTitle("");
+
         setTitle("");
         // 初始化控件
         initView();

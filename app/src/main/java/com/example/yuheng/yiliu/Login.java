@@ -21,12 +21,7 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.lidong.photopicker.Image;
-import com.lidong.photopicker.ImageCaptureManager;
-import com.lidong.photopicker.PhotoPickerActivity;
-import com.lidong.photopicker.PhotoPreviewActivity;
-import com.lidong.photopicker.SelectModel;
-import com.lidong.photopicker.intent.PhotoPickerIntent;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -5,32 +5,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
+
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:scrollbars="none">
+
         <LinearLayout
-            android:layout_marginHorizontal="10dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
+                    android:id="@+id/d"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="日期:"
-                    android:id="@+id/d"
-                    android:textSize="20sp"
-                    />
+                    android:textSize="20sp" />
+
                 <EditText
                     android:id="@+id/dd"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"/>
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1" />
 
                 <ToggleButton
                     android:id="@+id/lock"
@@ -39,54 +43,58 @@
                     android:background="#00000000"
                     android:drawableLeft="@drawable/unlock_btn_press"
                     android:textOff="公开"
-                    android:textOn="私密"/>
+                    android:textOn="私密" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="地址:"
                     android:textSize="20sp" />
+
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"/>
+                    android:layout_marginStart="10dp" />
             </LinearLayout>
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="标题:"
                     android:textSize="20sp" />
+
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"/>
+                    android:layout_marginStart="10dp" />
             </LinearLayout>
-            
-            
+
+
             <EditText
                 android:id="@+id/et_context"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:hint="说说你的心情与故事..."
-                android:inputType=""
-                android:background="@null"/>
+                android:inputType="" />
 
-            <GridView
-                android:layout_marginTop="5dp"
-                android:id="@+id/gridView"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler"
                 android:layout_width="match_parent"
-                android:layout_height="358dp"
-                android:horizontalSpacing="5dp"
-                android:numColumns="3"
-                android:verticalSpacing="5dp" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+               />
         </LinearLayout>
+
     </ScrollView>
 
     <LinearLayout

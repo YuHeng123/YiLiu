@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Picture;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,30 +34,26 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
-import com.lidong.photopicker.ImageCaptureManager;
-import com.lidong.photopicker.PhotoPickerActivity;
-import com.lidong.photopicker.PhotoPreviewActivity;
-import com.lidong.photopicker.SelectModel;
-import com.lidong.photopicker.intent.PhotoPickerIntent;
-import com.lidong.photopicker.intent.PhotoPreviewIntent;
+import com.bumptech.glide.request.RequestOptions;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
+
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AddActivity extends AppCompatActivity implements View.OnClickListener{
-    private int columnWidth;
-    private ArrayList<String> imagePaths = null;
-    private GridAdapter gridAdapter;
-    private GridView gv;
-    private ImageCaptureManager captureManager; // 相机拍照处理类
-    private static final int REQUEST_CAMERA_CODE = 11;
-    private static final int TAKE_PHOTO_REQUEST_CODE = 1;
-    private String depp;
-    private String TAG =AddActivity.class.getSimpleName();
+
     private EditText textView;
     private ToggleButton lock;
     private boolean aBoolean=true;
+    private List<LocalMedia> selectList =new ArrayList<>();
+    private RecyclerView  mRecyclerView;
+    private GridImageAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +67,9 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         ImageButton calendar = (ImageButton) findViewById(R.id.calendar);
         ImageButton photo = (ImageButton) findViewById(R.id.photo);
         ImageButton video = (ImageButton) findViewById(R.id.video);
-        gv = (GridView) findViewById(R.id.gridView);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler);
         textView= (EditText)findViewById(R.id.et_context);
-
-
+        initWidget();
 
 
 
@@ -80,13 +78,6 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         builder.detectFileUriExposure();
 
 
-        //得到GridView中每个ImageView宽高
-        int cols = getResources().getDisplayMetrics().widthPixels / getResources().getDisplayMetrics().densityDpi;
-        cols = cols < 3 ? 3 : cols;
-        gv.setNumColumns(cols);
-        int screenWidth = getResources().getDisplayMetrics().widthPixels;
-        int columnSpace = getResources().getDimensionPixelOffset(R.dimen.space_size);
-        columnWidth = (screenWidth - columnSpace * (cols-1)) / cols;
 
 
         lock.setOnClickListener(this);
@@ -94,149 +85,119 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         calendar.setOnClickListener(this);
         photo.setOnClickListener(this);
         video.setOnClickListener(this);
-        //GridView item点击事件（浏览照片）
-        gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+    }
+    private void initWidget() {
+        FullyGridLayoutManager manager = new FullyGridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
+        mRecyclerView.setLayoutManager(manager);
+        adapter = new GridImageAdapter(this);
+        adapter.setList(selectList);
+        adapter.setSelectMax(9);
+        mRecyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new GridImageAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                PhotoPreviewIntent intent = new PhotoPreviewIntent(AddActivity.this);
-                intent.setCurrentItem(position);
-                intent.setPhotoPaths(imagePaths);
-                startActivityForResult(intent, 22);
+            public void onItemClick(int position, View v) {
+                if (selectList.size() > 0) {
+                    LocalMedia media = selectList.get(position);
+                    String pictureType = media.getPictureType();
+                    int mediaType = PictureMimeType.pictureToVideo(pictureType);
+                    switch (mediaType) {
+                        case 1:
+                            // 预览图片 可自定长按保存路径
+                            //PictureSelector.create(MainActivity.this).externalPicturePreview(position, "/custom_file", selectList);
+                            PictureSelector.create(AddActivity.this).externalPicturePreview(position, selectList);
+                            break;
+                        case 2:
+                            // 预览视频
+                            PictureSelector.create(AddActivity.this).externalPictureVideo(media.getPath());
+                            break;
+                        case 3:
+                            // 预览音频
+                            PictureSelector.create(AddActivity.this).externalPictureAudio(media.getPath());
+                            break;
+                    }
+                }
             }
         });
     }
 
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            //定位
-            case R.id.local:
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                //定位
+                case R.id.local:
 
-                break;
-            //日期
-            case  R.id.calendar:
-
-                break;
-            //图片
-            case R.id.photo:
-                PhotoPickerIntent intent1 = new PhotoPickerIntent(AddActivity.this);
-                intent1.setSelectModel(SelectModel.MULTI);
-                intent1.setShowCarema(true); // 是否显示拍照
-                intent1.setMaxTotal(9); // 最多选择照片数量，默认为9
-                intent1.setSelectedPaths(imagePaths); // 已选中的照片地址， 用于回显选中状态
-                startActivityForResult(intent1, REQUEST_CAMERA_CODE);
-                break;
-            //视频
-            case R.id.video:
-
-                break;
-
-            case R.id.lock:
-                lock.setSelected(aBoolean);
-                aBoolean = !aBoolean;
+                    break;
+                //日期
+                case R.id.calendar:
 
 
+                    break;
+                //图片
+                case R.id.photo:
+                    PictureSelector.create(AddActivity.this)
+                            .openGallery(PictureMimeType.ofAll())
+                            .maxSelectNum(9)// 最大图片选择数量
+                            .imageSpanCount(3)//每行显示个数
+                            .selectionMode(PictureConfig.MULTIPLE)//多选
+                            .previewImage(true)// 是否可预览图片
+                            .isCamera(true)// 是否显示拍照按钮
+                            .previewEggs(true)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中) true or false
+                            .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
+
+
+                    break;
+                //视频
+                case R.id.video:
+                    PictureSelector.create(AddActivity.this)
+                            .openGallery(PictureMimeType.ofVideo())
+                            .imageSpanCount(3)
+                            .selectionMode(PictureConfig.MULTIPLE)
+                            .previewVideo(true)// 是否可预览视频
+                            .isZoomAnim(true)
+                            .compress(true)
+                            .isGif(true)
+                            .videoQuality(1)// 视频录制质量 0 or 1 int
+                            .videoMaxSecond(60)
+                            .recordVideoSecond(60)//视频秒数录制 默认 60s int
+                            .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调 onActivityResult code
+
+                    break;
+
+                case R.id.lock:
+                    lock.setSelected(aBoolean);
+                    aBoolean = !aBoolean;
+
+
+            }
         }
-    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode==RESULT_OK){
-            switch (requestCode){
-                // 选择照片
-                case REQUEST_CAMERA_CODE:
-                    loadAdpater(data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT));
-                    break;
-                //浏览照片
-                case 22:
-                    loadAdpater(data.getStringArrayListExtra(PhotoPreviewActivity.EXTRA_RESULT));
-                    break;
-                // 调用相机拍照
-                case ImageCaptureManager.REQUEST_TAKE_PHOTO:
-                    try {
+        List<LocalMedia> images;
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case PictureConfig.CHOOSE_REQUEST:
+                    // 图片选择结果回调
 
-                        if(captureManager == null){
-                            captureManager = new ImageCaptureManager(AddActivity.this);
-                        }
-                        Intent intent3 = captureManager.dispatchTakePictureIntent();
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            intent3.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
-                        }
-                        startActivityForResult(intent3, ImageCaptureManager.REQUEST_TAKE_PHOTO);
-                    } catch (IOException e) {
-                        Toast.makeText(AddActivity.this, com.lidong.photopicker.R.string.msg_no_camera, Toast.LENGTH_SHORT).show();
-                        e.printStackTrace();
-                    }
+                    images = PictureSelector.obtainMultipleResult(data);
+                    selectList.addAll(images);
+
+//                    selectList = PictureSelector.obtainMultipleResult(data);
+                    // 例如 LocalMedia 里面返回三种path
+                    // 1.media.getPath(); 为原图path
+                    // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true
+                    // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
+                    // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+                    adapter.setList(selectList);
+                    adapter.notifyDataSetChanged();
                     break;
             }
         }
     }
-
-    private void loadAdpater(ArrayList<String> paths){
-        if(imagePaths == null){
-            imagePaths = new ArrayList<>();
-        }
-        imagePaths.clear();
-        imagePaths.addAll(paths);
-        if(gridAdapter == null){
-            gridAdapter = new GridAdapter(imagePaths);
-            gv.setAdapter(gridAdapter);
-        }else {
-            gridAdapter.notifyDataSetChanged();
-        }
-    }
-
-
-
-    private class GridAdapter extends BaseAdapter {
-        private ArrayList<String> listUrls;
-
-        public GridAdapter(ArrayList<String> listUrls) {
-            this.listUrls = listUrls;
-        }
-
-        @Override
-        public int getCount() {
-            return listUrls.size();
-        }
-
-        @Override
-        public String getItem(int position) {
-            return listUrls.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView imageView;
-            if(convertView == null){
-                convertView = getLayoutInflater().inflate(R.layout.item_image, null);
-                imageView = (ImageView) convertView.findViewById(R.id.imageView);
-                convertView.setTag(imageView);
-                // 重置ImageView宽高
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(columnWidth, columnWidth);
-                imageView.setLayoutParams(params);
-            }else {
-                imageView = (ImageView) convertView.getTag();
-            }
-            //框架里自带glide
-            Glide.with(AddActivity.this)
-                    .load(new File(getItem(position)))
-                    .placeholder(R.mipmap.default_error)
-                    .error(R.mipmap.default_error)
-                    .centerCrop()
-                    .crossFade()
-                    .into(imageView);
-            return convertView;
-        }
-    }
-
 
 
 
@@ -252,16 +213,8 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_save://监听保存的菜单按钮
-                Toast.makeText(getApplicationContext(), "dhia", Toast.LENGTH_LONG).show();
-                depp = textView.getText().toString().trim();
-                new Thread(){
-                    @Override
-                    public void run() {
-                        super.run();
-                        com.example.yuheng.yiliu.FileUploadManager.uploadMany(imagePaths, depp);
-//                        FileUploadManager.upload(imagePaths,depp);
-                    }
-                }.start();
+                Toast.makeText(getApplicationContext(), "发表成功", Toast.LENGTH_LONG).show();
+
         }
         return super.onOptionsItemSelected(item);
     }

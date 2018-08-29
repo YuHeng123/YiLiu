@@ -68,14 +68,12 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths">
-
             </meta-data>
-
         </provider>
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="716e89760232473b0aedc0dbf8ffd40b">
+            android:value="aa5539e6ba46a9598945e2a7ce428a3e">
 
         </meta-data>
 
@@ -86,13 +84,7 @@
         <activity android:name=".AddActivity"
             android:theme="@style/reAPPTheme"
             />
-        <activity
-            android:name="com.lidong.photopicker.PhotoPickerActivity"
-            android:configChanges="orientation|screenSize"
-            android:theme="@style/PhotoPickerTheme" />
-        <activity
-            android:name="com.lidong.photopicker.PhotoPreviewActivity"
-            android:theme="@style/PhotoPickerTheme" />
+
         <activity android:name=".Sign"
             />
         <activity android:name=".Login"/>
