@@ -64,6 +64,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private List<LocalMedia> selectList =new ArrayList<>();
     private RecyclerView  mRecyclerView;
     private GridImageAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +95,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         year =Calendar1.get(Calendar.YEAR);
         month =Calendar1.get(Calendar.MONTH);
         day =Calendar1.get(Calendar.DAY_OF_MONTH);
-        hours = Calendar1.get(Calendar.HOUR);
+        hours = Calendar1.get(Calendar.HOUR_OF_DAY);
         minute = Calendar1.get(Calendar.MINUTE);
         lock.setOnClickListener(this);
         local.setOnClickListener(this);
@@ -149,7 +150,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                     break;
                 //日期
                 case R.id.calendar:
-                    date.setText(year + "-" + month + "-" + day + "  " + hours +  ":" + minute);
+                    date.setText(year + "-" + (month+1) + "-" + day + "  " + hours +  ":" + minute);
 
                     break;
                 //图片
