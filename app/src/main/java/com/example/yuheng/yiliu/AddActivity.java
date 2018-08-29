@@ -43,18 +43,27 @@ import com.luck.picture.lib.entity.LocalMedia;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.PrivateKey;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class AddActivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText textView;
     private ToggleButton lock;
+    private Calendar Calendar1;
+    private EditText local;
+    private int year;
+    private int month;
+    private int day;
+    private int hours;
+    private int minute;
+    private EditText date;
     private boolean aBoolean=true;
     private List<LocalMedia> selectList =new ArrayList<>();
     private RecyclerView  mRecyclerView;
     private GridImageAdapter adapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +71,8 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_add);
 
 
+        local = (EditText)findViewById(R.id.address);
+        date = (EditText)findViewById(R.id.dd);
         lock = (ToggleButton) findViewById(R.id.lock);
         ImageButton local = (ImageButton) findViewById(R.id.local);
         ImageButton calendar = (ImageButton) findViewById(R.id.calendar);
@@ -79,7 +90,12 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
 
 
-
+        Calendar1=Calendar.getInstance();
+        year =Calendar1.get(Calendar.YEAR);
+        month =Calendar1.get(Calendar.MONTH);
+        day =Calendar1.get(Calendar.DAY_OF_MONTH);
+        hours = Calendar1.get(Calendar.HOUR);
+        minute = Calendar1.get(Calendar.MINUTE);
         lock.setOnClickListener(this);
         local.setOnClickListener(this);
         calendar.setOnClickListener(this);
@@ -127,11 +143,13 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
             switch (view.getId()) {
                 //定位
                 case R.id.local:
-
+                    Intent intent = getIntent();
+                    String address = intent.getStringExtra("address");
+                    local.setText(address);
                     break;
                 //日期
                 case R.id.calendar:
-
+                    date.setText(year + "-" + month + "-" + day + "  " + hours +  ":" + minute);
 
                     break;
                 //图片
