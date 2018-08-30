@@ -52,7 +52,8 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
     private DrawerLayout mDrawerLayout;
     private TextView add;
     private ImageView head;
-
+    private ListView lv;
+    StringBuffer buffer = new StringBuffer();
     private long firstTime = 0;
 
     //listview名
@@ -217,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
                     //添加图钉
                     aMap.addMarker(getMarkerOptions(amapLocation));
                     //获取定位信息
-                    StringBuffer buffer = new StringBuffer();
+
                     buffer.append(amapLocation.getCountry() + "" + amapLocation.getProvince() + "" + amapLocation.getCity() + "" + amapLocation.getProvince() + "" + amapLocation.getDistrict() + "" + amapLocation.getStreet() + "" + amapLocation.getStreetNum());
                     Toast.makeText(getApplicationContext(), buffer.toString(), Toast.LENGTH_LONG).show();
                     isFirstLoc = false;
@@ -248,7 +249,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
         //标题
         options.title(buffer.toString());
         //子标题
-        options.snippet("这里好火");
+        options.snippet("");
         //设置多少帧刷新一次图片资源
         options.period(60);
 
@@ -268,6 +269,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
     public void deactivate() {
         mListener = null;
     }
+
 
 
     /**
@@ -310,7 +312,9 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.add:
-                Intent intent = new Intent(MainActivity.this, AddActivity.class);
+                Intent intent = new Intent();
+                intent.putExtra("address",buffer.toString());
+                intent.setClass(MainActivity.this,AddActivity.class);
                 startActivity(intent);
                 break;
             case  R.id.head:
@@ -319,6 +323,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
                 break;
         }
     }
+
 
 
     class MyAdapter extends BaseAdapter {
@@ -349,9 +354,8 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
             return view;
         }
 
+
     }
-
-
 
     @Override
     public boolean onKeyUp(int keyCode,KeyEvent event){
@@ -368,4 +372,8 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
         }
         return super.onKeyUp(keyCode,event);
     }
+
+
+
+
 }
