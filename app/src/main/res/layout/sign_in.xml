@@ -5,60 +5,35 @@
     android:orientation="vertical">
 
 
-    <ImageView
-        android:id="@+id/image_sign"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="10dp"
-        android:layout_gravity="center_horizontal"/>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:layout_marginTop="200dp">
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/sign_enter"
-            android:layout_marginLeft="18dp"
-            />
 
         <EditText
             android:id="@+id/account"
-            android:layout_marginLeft="5dp"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_width="280dp"
+            android:paddingLeft="6dp"
+            android:drawableLeft="@drawable/sign_enter"
+            android:layout_height="50dp"
             android:hint="手机/邮箱"
-            />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_horizontal">
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/sign_enter_password"
-            android:layout_marginLeft="18dp"
-            android:layout_gravity="center_vertical"
+            android:background="@drawable/background_editext"
             />
 
         <EditText
             android:id="@+id/password"
-            android:layout_marginLeft="5dp"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:paddingLeft="6dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:drawableLeft="@drawable/sign_enter_password"
             android:hint="密码"
+            android:background="@drawable/background_editext"
             />
 
 
@@ -82,7 +57,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
         android:text="自动登录"
-        android:layout_toRightOf="@id/checkBox" />
+        android:layout_toRightOf="@id/checkBox"
+        />
 
     </RelativeLayout>
 
@@ -94,6 +70,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:background="@drawable/round"
+
         android:text="登陆"
         />
 
@@ -115,7 +92,7 @@
         android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
         android:text="没有账号？ 立即注册吧！"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/title_background"
         />
 
 </LinearLayout>

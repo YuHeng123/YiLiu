@@ -1,34 +1,29 @@
 package com.example.yuheng.yiliu;
 
 import android.annotation.SuppressLint;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 @SuppressLint("SdCardPath")
 public class Login extends AppCompatActivity implements View.OnClickListener {
     private Button bt1;
@@ -42,8 +37,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private  ImageView cancel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.sign_in_enter);
         super.onCreate(savedInstanceState);
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT){
+            WindowManager.LayoutParams layoutParams=getWindow().getAttributes();
+            layoutParams.flags=(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS|layoutParams.flags);
+        }
         popupView = View.inflate(this, R.layout.popup_view,null);
         myPopupWindow = new MyPopupWindow(Login.this,popupView,findViewById(R.id.image_sign9957));
         bt1 = (Button) findViewById(R.id.login_button);

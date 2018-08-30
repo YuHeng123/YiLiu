@@ -124,4 +124,16 @@
         <item name="picture.folder_checked_dot">@drawable/orange_oval</item>
     </style>
 
+    <!--checkbox样式-->
+    <style name="myCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_style</item>
+    </style>
+
+    <style name="imagebutton1" parent="@android:style/Widget.ImageButton">
+        <item name="android:button">@drawable/myimagebutton</item>
+    </style>
+
+    <style name="imagebutton2" parent="@android:style/Widget.ImageButton">
+        <item name="android:button">@drawable/myimagebutton1</item>
+    </style>
 </resources>
