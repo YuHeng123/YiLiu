@@ -2,24 +2,17 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/steinfield">
 
-    <ImageView
-        android:id="@+id/image_sign9957"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="80dp"
-        android:scaleType="centerCrop"
-        android:background="@mipmap/headimg"/>
+
 
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="230dp"
         android:orientation="vertical">
 
         <EditText
@@ -44,6 +37,11 @@
             android:hint=" 密码"
             />
 
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
         <EditText
             android:id="@+id/et3"
             android:layout_width="250dp"
@@ -51,11 +49,19 @@
             android:paddingLeft="5dp"
             android:layout_height="50dp"
             android:background="@drawable/background_editext"
-            android:drawableLeft="@drawable/passwordok"
-            android:hint="确认密码" />
+            android:hint="验证码" />
 
+        <TextView
+            android:id="@+id/verification_code"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:layout_alignTop="@id/et3"
+            android:layout_alignEnd="@+id/et3"
+            android:text="获取验证码" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <Button
         android:id="@+id/login_button"
