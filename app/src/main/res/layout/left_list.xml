@@ -12,7 +12,6 @@
         android:scaleType="center"/>
 
     <TextView
-        android:text="首页"
         android:id="@+id/tv_title"
         android:layout_toRightOf="@id/iv_photo"
         android:layout_width="match_parent"

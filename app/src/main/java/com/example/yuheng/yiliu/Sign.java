@@ -37,18 +37,16 @@ public class Sign extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+
             case R.id.sign_button:
                 Intent intent = new Intent(Sign.this,MainActivity.class);
                 startActivity(intent);
                 break;
-
             case R.id.tv:
                 Intent intent1= new Intent(Sign.this,Login.class);
                 startActivity(intent1);
                 finish();
                 break;
-
         }
-
-        }
+    }
 }
