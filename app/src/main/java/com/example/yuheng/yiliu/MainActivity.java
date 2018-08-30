@@ -352,6 +352,11 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
             iv_photo.setBackgroundResource(imageId[position]);
             tv_title.setText(titles[position]);
             return view;
+
+
+
+
+            
         }
 
 
