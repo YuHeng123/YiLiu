@@ -20,11 +20,12 @@ android {
         }
 
     }
+    buildToolsVersion '28.0.1'
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:appcompat-v7:22.+'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
@@ -36,4 +37,5 @@ dependencies {
     implementation 'io.reactivex:rxjava:1.1.0'
     implementation 'io.reactivex:rxandroid:1.1.0'
     implementation 'com.makeramen:roundedimageview:2.3.0'
+
 }

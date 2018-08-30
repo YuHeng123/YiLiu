@@ -89,7 +89,14 @@
 
         <activity android:name=".Sign"
             />
-        <activity android:name=".Login"/>
+        <activity android:name=".Login" />
+        <activity android:name=".aboutus"/>
+        <activity android:name=".Advice"/>
+        <activity android:name=".Messagecenter"/>
+        <activity android:name=".myinterest"/>
+        <activity android:name=".Editdata"/>
+        <activity android:name=".resetpasswords"/>
+        <activity android:name=".versionupdating"/>
     </application>
 
 </manifest>
