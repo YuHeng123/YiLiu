@@ -157,12 +157,10 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
                     case 3:
                         intent = new Intent( view.getContext(),Advice.class );//2
                         startActivity( intent );
-
                         break;
                     case 4:
                         intent = new Intent( view.getContext(),resetpasswords.class );//5
                         startActivity( intent );
-
                         break;
                     case 5:
                         intent = new Intent( view.getContext(), versionupdating.class);//6
@@ -175,7 +173,6 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
                 }
             }
         } );
-
     }
 
 
