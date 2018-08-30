@@ -84,6 +84,7 @@
         <activity android:name=".AddActivity"
             android:theme="@style/reAPPTheme"
             android:parentActivityName=".MainActivity"
+            
             />
 
         <activity android:name=".Sign"
