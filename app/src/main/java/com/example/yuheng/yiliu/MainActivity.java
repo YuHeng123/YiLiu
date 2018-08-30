@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -52,19 +53,17 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
     private DrawerLayout mDrawerLayout;
     private TextView add;
     private ImageView head;
-    private ListView lv;
     StringBuffer buffer = new StringBuffer();
     private long firstTime = 0;
 
     //listview名
-    private String[] titles = {"消息中心", "建议反馈", "编辑资料", "重置密码", "清理缓存", "版本更新", "关于我们", "退出"};
+    private String[] titles = {"消息中心", "编辑资料","我的关注","建议反馈", "重置密码", "版本更新", "关于我们"};
     private int[] imageId = {R.drawable.name6, R.drawable.name1, R.drawable.name7, R.drawable.name5, R.drawable.name2, R.drawable.name8, R.drawable.name3, R.drawable.name4};
 
     //定位需要的声明
     private AMapLocationClient mLocationClient = null;//定位发起端
     private AMapLocationClientOption mLocationOption = null;//定位参数
     private OnLocationChangedListener mListener = null;//定位监听器
-    private int mCurrentPos = 0;
     private ListView mLv_title;
     //标识，用于判断是否只显示一次定位信息和用户重新定位
     private boolean isFirstLoc = true;
@@ -79,6 +78,8 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
             WindowManager.LayoutParams layoutParams=getWindow().getAttributes();
             layoutParams.flags=(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS|layoutParams.flags);
         }
+
+
 
         mapView = (MapView) findViewById(R.id.map);
         add = (TextView) findViewById(R.id.add);
@@ -132,6 +133,48 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
         mLv_title = (ListView) findViewById(R.id.lv);
         MyAdapter myAdapter = new MyAdapter();
         mLv_title.setAdapter(myAdapter);
+        //listview iteam点击事件的跳转
+        mLv_title.setOnItemClickListener( new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = null;
+                switch (position){
+                    case 0:
+                        intent = new Intent( view.getContext(),Messagecenter.class );
+                        startActivity( intent );
+                        break;
+                    case 1:
+                        intent = new Intent( view.getContext(),Editdata.class );//3
+                        startActivity( intent );
+                        break;
+                    case 2:
+                        intent = new Intent( view.getContext(),myinterest.class );//4
+                        startActivity( intent );
+                        break;
+                    case 3:
+                        intent = new Intent( view.getContext(),Advice.class );//2
+                        startActivity( intent );
+
+                        break;
+                    case 4:
+                        intent = new Intent( view.getContext(),resetpasswords.class );//5
+                        startActivity( intent );
+
+                        break;
+                    case 5:
+                        intent = new Intent( view.getContext(), versionupdating.class);//6
+                        startActivity( intent );
+                        break;
+                    case 6:
+                        intent = new Intent( view.getContext(),aboutus.class);//1
+                        startActivity( intent );
+                        break;
+                }
+                if (intent != null){
+                    startActivity( intent );
+                }
+            }
+        } );
 
     }
 
@@ -175,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
         //设置是否允许模拟位置,默认为false，不允许模拟位置
         mLocationOption.setMockEnable(false);
         //设置定位间隔,单位毫秒,默认为2000ms
-        mLocationOption.setInterval(2000);
+        mLocationOption.setInterval(7000);
         //给定位客户端对象设置定位参数
         mLocationClient.setLocationOption(mLocationOption);
         //启动定位
@@ -344,6 +387,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
             return position;
         }
 
+
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View view = View.inflate(getApplicationContext(), R.layout.left_list, null);
@@ -372,6 +416,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
         }
         return super.onKeyUp(keyCode,event);
     }
+
 
 
 
