@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
 
     //listview名
     private String[] titles = {"消息中心", "编辑资料","我的关注","建议反馈", "重置密码", "版本更新", "关于我们"};
-    private int[] imageId = {R.drawable.name6, R.drawable.name1, R.drawable.name7, R.drawable.name5, R.drawable.name2, R.drawable.name8, R.drawable.name3, R.drawable.name4};
+    private int[] imageId = {R.drawable.name6, R.drawable.name1, R.drawable.name7, R.drawable.name5, R.drawable.name2, R.drawable.name8, R.drawable.name3};
 
     //定位需要的声明
     private AMapLocationClient mLocationClient = null;//定位发起端
@@ -138,6 +138,9 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = null;
+                if (intent != null){
+                    startActivity( intent );
+                }
                 switch (position){
                     case 0:
                         intent = new Intent( view.getContext(),Messagecenter.class );
@@ -169,9 +172,6 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
                         intent = new Intent( view.getContext(),aboutus.class);//1
                         startActivity( intent );
                         break;
-                }
-                if (intent != null){
-                    startActivity( intent );
                 }
             }
         } );
