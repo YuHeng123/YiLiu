@@ -1,20 +1,29 @@
 package com.example.yuheng.yiliu;
 
-
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -78,8 +87,10 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
         head.setOnClickListener(this);
         mapView.onCreate(savedInstanceState);// 此方法必须重写
         Glide.with(this)
-                .load(R.drawable.ic_launcher_background)
+                .load(R.drawable.pc2)
                 .into(head);
+        setTitle("");
+
         setTitle("");
         // 初始化控件
         initView();
