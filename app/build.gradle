@@ -5,6 +5,8 @@ android {
     packagingOptions {//加上这写代码
         pickFirst 'META-INF/*'
     }
+
+
     defaultConfig {
         applicationId "com.example.yuheng.yiliu"
         minSdkVersion 21
@@ -20,22 +22,28 @@ android {
         }
 
     }
-    buildToolsVersion '28.0.1'
+    buildToolsVersion '28.0.2'
+    //兼容Android6.0系统所需，如果这句话报错，可在dependencies标签下使用compile 'cn.bmob.android:http-legacy:1.0'
+    useLibrary 'org.apache.http.legacy'
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:22.+'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation 'com.squareup.retrofit2:retrofit:2.0.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.0.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava:2.0.0'
-    implementation 'io.reactivex:rxjava:1.1.0'
-    implementation 'io.reactivex:rxandroid:1.1.0'
+    //bmob-sdk：Bmob的android sdk包，包含了Bmob的数据存储、文件等服务
+    implementation 'cn.bmob.android:bmob-sdk:3.5.5'
+    //兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
+    implementation 'cn.bmob.android:http-legacy:1.0'
+    //圆形ImageView
     implementation 'com.makeramen:roundedimageview:2.3.0'
-
+    //litepal数据库
+    implementation 'org.litepal.android:core:2.0.0'
+    implementation files('libs/Android_Map3D_SDK_V6.4.0_20180814.jar')
+    implementation files('libs/AMap_Location_V4.2.0_20180809.jar')
 }
