@@ -126,7 +126,7 @@
 
     <!--checkbox样式-->
     <style name="myCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
-        <item name="android:button">@drawable/checkbox_style</item>
+        <item name="android:button">@drawable/check</item>
     </style>
 
     <style name="imagebutton1" parent="@android:style/Widget.ImageButton">

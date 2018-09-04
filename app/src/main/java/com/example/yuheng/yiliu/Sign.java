@@ -45,10 +45,11 @@ public class Sign extends AppCompatActivity implements View.OnClickListener {
         //初始化Bmob
         //Bmob.initialize(上下文，application id)
         Bmob.initialize(this,APPLICATION_ID);
-        if (BmobUser.getCurrentUser() != null){
-            startActivity(new Intent(Sign.this,MainActivity.class));
+        if (BmobUser.getCurrentUser() != null) {
+            startActivity(new Intent(Sign.this, MainActivity.class));
             finish();
         }
+
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT){
             WindowManager.LayoutParams layoutParams=getWindow().getAttributes();
             layoutParams.flags=(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS|layoutParams.flags);
@@ -110,7 +111,7 @@ public class Sign extends AppCompatActivity implements View.OnClickListener {
                                     }
                                     finish();
                                 }else {
-                                    ToastUtils.showToast("密错误");
+                                    ToastUtils.showToast("密码错误");
                                 }
                             }
                         });

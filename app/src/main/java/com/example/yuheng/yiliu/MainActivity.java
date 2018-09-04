@@ -348,6 +348,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
             case  R.id.head:
                 Intent intent1 = new Intent(MainActivity.this,Sign.class);
                 startActivity(intent1);
+                finish();
                 break;
         }
     }

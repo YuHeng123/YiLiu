@@ -1,78 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/login_background">
-
-
-
-
-    <LinearLayout
+    android:background="@drawable/sign_background">
+    <ImageView
+        android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="230dp"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/phone_number_editText"
-            android:layout_width="250dp"
-            android:paddingLeft="5dp"
-            android:layout_height="50dp"
-            android:background="@drawable/background_editext"
-            android:layout_toRightOf="@+id/sign_ID"
-            android:drawableLeft="@drawable/sign_enter"
-            android:hint="手机号码" />
-
-        <EditText
-            android:id="@+id/password_editText"
-            android:layout_width="250dp"
-            android:layout_marginTop="5dp"
-            android:paddingLeft="5dp"
-            android:layout_height="50dp"
-            android:background="@drawable/background_editext"
-            android:layout_toRightOf="@+id/sign_ID2"
-            android:drawableLeft="@drawable/sign_enter_password"
-            android:hint=" 密码"
-            />
-
-    </LinearLayout>
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
-        <EditText
-            android:id="@+id/code_editText"
-            android:layout_width="250dp"
-            android:layout_marginTop="5dp"
-            android:paddingLeft="5dp"
-            android:layout_height="50dp"
-            android:background="@drawable/background_editext"
-            android:hint="验证码" />
-
-        <TextView
-            android:id="@+id/verification_code"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:layout_alignTop="@id/code_editText"
-            android:layout_alignEnd="@+id/code_editText"
-            android:text="获取验证码" />
-
-    </RelativeLayout>
-
-    <Button
-        android:id="@+id/login_button"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/round"
-        android:text="注册"
+        android:layout_marginTop="170dp"
+        android:background="@drawable/rflow"
+        android:layout_centerHorizontal="true"
         />
 
 
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:orientation="vertical"
+        >
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/phone_number_editText"
+            android:layout_width="match_parent"
+            android:paddingLeft="24dp"
+            android:drawableLeft="@drawable/user"
+            android:layout_height="55dp"
+            android:textColorHint="#fefefe"
+            android:hint="手机/邮箱"
+            android:drawablePadding="20dp"
+            android:maxLength="11"
+            android:singleLine="true"
+            android:textColor="#fefefe"
+            android:background="@drawable/background_editext"
+            />
+
+        <EditText
+            android:id="@+id/password_editText"
+            android:paddingLeft="24dp"
+            android:layout_marginTop="9dp"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:drawablePadding="20dp"
+            android:singleLine="true"
+            android:drawableLeft="@drawable/password"
+            android:hint="密码"
+            android:textColor="#fefefe"
+            android:textColorHint="#fefefe"
+            android:background="@drawable/background_editext"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+            <EditText
+                android:id="@+id/code_editText"
+                android:layout_width="match_parent"
+                android:layout_marginTop="9dp"
+                android:paddingLeft="24dp"
+                android:layout_height="55dp"
+                android:background="@drawable/background_editext"
+                android:hint="验证码"
+               android:textColorHint="#fefefe"/>
+
+            <TextView
+                android:id="@+id/verification_code"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:padding="15dp"
+                android:gravity="center"
+                android:layout_alignTop="@id/code_editText"
+                android:layout_alignEnd="@+id/code_editText"
+                android:text="获取验证码"
+                android:textColor="#555555"/>
+
+        </RelativeLayout>
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/round"
+            android:text="注册"
+            android:textColor="#fefefe"
+            android:textSize="16dp"/>
+
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>
