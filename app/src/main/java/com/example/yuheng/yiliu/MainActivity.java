@@ -2,6 +2,7 @@ package com.example.yuheng.yiliu;
 
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,7 +36,7 @@ import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.bumptech.glide.Glide;
 
-public class MainActivity extends AppCompatActivity implements LocationSource, AMapLocationListener,View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements LocationSource, AMapLocationListener,View.OnClickListener{
 
 
     private MapView mapView;
@@ -48,7 +50,8 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
 
     //listview名
     private String[] titles = {"消息中心", "编辑资料","我的关注","建议反馈", "重置密码", "版本更新", "关于我们"};
-    private int[] imageId = {R.drawable.name6, R.drawable.name1, R.drawable.name7, R.drawable.name5, R.drawable.name2, R.drawable.name8, R.drawable.name3};
+    private int[] imageId = {R.drawable.message_center, R.drawable.edit_data, R.drawable.my_attention,
+            R.drawable.suggests, R.drawable.reset_password, R.drawable.updata, R.drawable.for_us};
 
     //定位需要的声明
     private AMapLocationClient mLocationClient = null;//定位发起端
@@ -57,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
     private ListView mLv_title;
     //标识，用于判断是否只显示一次定位信息和用户重新定位
     private boolean isFirstLoc = true;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
             WindowManager.LayoutParams layoutParams=getWindow().getAttributes();
             layoutParams.flags=(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS|layoutParams.flags);
         }
-
 
 
         mapView = (MapView) findViewById(R.id.map);
@@ -340,16 +341,16 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.add:
-                Intent intent = new Intent();
-                intent.putExtra("address",buffer.toString());
-                intent.setClass(MainActivity.this,AddActivity.class);
-                startActivity(intent);
+                Intent inter = new Intent(MainActivity.this, AddActivity.class);
+                inter.putExtra("address",buffer.toString());
+                startActivity(inter);
                 break;
             case  R.id.head:
                 Intent intent1 = new Intent(MainActivity.this,Sign.class);
                 startActivity(intent1);
                 finish();
                 break;
+
         }
     }
 
@@ -382,14 +383,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource, A
             iv_photo.setBackgroundResource(imageId[position]);
             tv_title.setText(titles[position]);
             return view;
-
-
-
-
-            
         }
-
-
     }
 
     @Override

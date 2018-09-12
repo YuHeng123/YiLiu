@@ -58,8 +58,8 @@ public class MyPopupWindow extends PopupWindow {
             //参数1：popupWindow的视图；
             //参数2：popupWindow的宽度；
             //参数3：popupWindow的高度；
-            popupWindow = new PopupWindow(popupView,WindowManager.LayoutParams.MATCH_PARENT,
-                    WindowManager.LayoutParams.WRAP_CONTENT);
+            popupWindow = new PopupWindow(popupView,1200,
+                    1700);
             //消失监听，popupWindow消失的时候，将恢复屏幕亮度。
             popupWindow.setOnDismissListener(new OnDismissListener() {
                 @Override
@@ -92,7 +92,7 @@ public class MyPopupWindow extends PopupWindow {
         //参数1：获取window的唯一标识；
         //参数2：出现位置；
         //参数3：方向偏移量。
-        popupWindow.showAtLocation(flag,Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL,0,0);
+        popupWindow.showAtLocation(flag,Gravity.CENTER|Gravity.CENTER_HORIZONTAL,0,0);
         lightOff();
         popupView.startAnimation(animation);
         popupWindow.update();

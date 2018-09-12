@@ -37,15 +37,6 @@
     </style>
 
 
-
-
-
-
-    <style name="AnimBottom" parent="@android:style/Animation">
-        <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
-        <item name="android:windowExitAnimation">@anim/push_buttom_out</item>
-    </style>
-
     <style name="MyDialogStyleBottom" parent="android:Theme.Dialog">
         <item name="android:windowAnimationStyle">@style/AnimBottom</item>
         <item name="android:windowFrame">@null</item>
@@ -62,6 +53,11 @@
         <!-- 模糊 -->
     </style>
 
+
+    <style name="AnimBottom" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/push_buttom_out</item>
+    </style>
 
     <!--popupWindow动画-->
     <style name="popupAnimation" parent="android:Animation" mce_bogus="1">
@@ -122,18 +118,18 @@
         <item name="picture.crop.title.color">@color/white</item>
         <!--相册文件夹列表选中图标-->
         <item name="picture.folder_checked_dot">@drawable/orange_oval</item>
+
     </style>
 
-    <!--checkbox样式-->
-    <style name="myCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
-        <item name="android:button">@drawable/check</item>
+    <!--页面悬浮-->
+    <style name="Theme.Transparent" parent="android:Theme.Holo.Dialog">
+        <item name="android:windowIsTranslucent">true</item>//此对话框的背景半透明
+        <item name="android:windowBackground">@android:color/transparent</item>//对话框是否透明
+        <item name="android:windowContentOverlay">@null</item>//对话框是否有遮盖
+        <item name="android:windowNoTitle">true</item>//对话框无标题
+        <item name="android:windowIsFloating">true</item> //对话框是否浮动
+        <item name="android:backgroundDimEnabled">true</item>//是否允许对话框的背景变暗
+        <item name="android:windowCloseOnTouchOutside">true</item>//点击空白处允许消失
     </style>
 
-    <style name="imagebutton1" parent="@android:style/Widget.ImageButton">
-        <item name="android:button">@drawable/myimagebutton</item>
-    </style>
-
-    <style name="imagebutton2" parent="@android:style/Widget.ImageButton">
-        <item name="android:button">@drawable/myimagebutton1</item>
-    </style>
 </resources>
